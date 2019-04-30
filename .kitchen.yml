@@ -1,14 +1,23 @@
 ---
 driver:
-  name: vagrant
-
+  name: ec2
+  tags:
+     Environment: development
+  
+transport:
+  username: ubuntu
+  
 provisioner:
-  name: chef_zero
+  name: chef_solo
+  always_update_cookbooks: <%= !ENV['CI'] %>
+
+verifier:
+  name: inspec
 
 platforms:
-  - name: ubuntu-14.04
-  - name: debian-8.1
-  - name: centos-6.7
+ - name: ubuntu-14.04
+   # - name: ubuntu-16.04
+   # - name: ubuntu-18.04
 
 suites:
   - name: default
